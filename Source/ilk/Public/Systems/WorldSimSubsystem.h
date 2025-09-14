@@ -18,7 +18,7 @@ public:
 
     // 1.0 => 1 saniye = 1 oyun saati
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldSim|Time", meta = (ClampMin = "0.0"))
-    float TimeScale = 0.5f;
+    float TimeScale = 0.1f;
 
     // --- Tickable ---
     virtual void Tick(float DeltaTime) override;
