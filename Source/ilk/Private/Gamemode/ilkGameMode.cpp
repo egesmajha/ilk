@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "ilkGameMode.h"
-#include "ilkCharacter.h"
+#include "GameMode/ilkGameMode.h"
+#include "Character/ilkCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 AilkGameMode::AilkGameMode()
