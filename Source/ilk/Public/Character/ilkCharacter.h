@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "TimerManager.h"         
+#include "Interfaces/InteractionInterface.h"
 #include "ilkCharacter.generated.h"
 
 class UInputComponent;
@@ -15,6 +17,24 @@ class UInputMappingContext;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
+
+USTRUCT()
+struct FInteractionData
+{
+   GENERATED_BODY()
+    
+   FInteractionData() : CurrentInteractable(nullptr), LastInteractionCheckTime(0.0f)
+    {
+    
+   };
+
+   UPROPERTY()
+   AActor* CurrentInteractable;
+
+   UPROPERTY()
+   float LastInteractionCheckTime;
+
+};
 
 UCLASS(config=Game)
 class AilkCharacter : public ACharacter
@@ -36,36 +56,75 @@ class AilkCharacter : public ACharacter
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* MoveAction;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+    UInputAction* InteractAction;
+
+
+
 	
-public:
-	AilkCharacter();
-
-protected:
-	virtual void BeginPlay();
 
 public:
-		
+
+    //PROPERTIES AND VARIABLES
+
+    //FUNCTIONS
+
+
+
+    AilkCharacter();
+
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
 
+
+    /** Returns Mesh1P subobject **/
+    USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
+    /** Returns FirstPersonCameraComponent subobject **/
+    UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
+
+
+    FORCEINLINE bool IsInteracting() const { return GetWorldTimerManager().IsTimerActive(TimerHandle_Interaction); };
+
 protected:
+
+    //PROPERTIES AND VARIABLES
+    UPROPERTY(VisibleAnywhere, Category = "Character | Interaction")
+    TScriptInterface<IInteractionInterface> TargetInteractable;
+
+    float InteractionCheckFrequency;
+
+    float InteractionCheckDistance;
+
+    FTimerHandle TimerHandle_Interaction;
+
+    FInteractionData InteractionData;
+
+    //FUNCTIONS
+
+    void PerformInteractionCheck();
+    void FoundInteractable(AActor* NewInteractable);
+    void NoInteractableFound();
+    void BeginInteract();
+    void EndInteract();
+    void Interact();
+
+    virtual void BeginPlay();
+    virtual void Tick(float DeltaTime) override;
+
+
+
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
-protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	// End of APawn interface
 
-public:
-	/** Returns Mesh1P subobject **/
-	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
-	/** Returns FirstPersonCameraComponent subobject **/
-	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
 };
 

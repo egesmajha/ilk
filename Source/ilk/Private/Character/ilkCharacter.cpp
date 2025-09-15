@@ -9,6 +9,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
+#include "DrawDebugHelpers.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -35,6 +36,8 @@ AilkCharacter::AilkCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
+    InteractionCheckFrequency = 0.1f;
+    InteractionCheckDistance = 225.0f;
 }
 
 void AilkCharacter::BeginPlay()
@@ -43,6 +46,15 @@ void AilkCharacter::BeginPlay()
 	Super::BeginPlay();
 }
 
+void AilkCharacter::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+    if(GetWorld()->TimeSince(InteractionData.LastInteractionCheckTime)> InteractionCheckFrequency)
+    {
+        PerformInteractionCheck();
+    }
+}
 //////////////////////////////////////////////////////////////////////////// Input
 
 void AilkCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -54,6 +66,12 @@ void AilkCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
+        // Interacting
+ /*       EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AilkCharacter::BeginInteract);
+        EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AilkCharacter::EndInteract);*/
+        PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &AilkCharacter::BeginInteract);
+        PlayerInputComponent->BindAction("Interact", IE_Released, this, &AilkCharacter::EndInteract);
+
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AilkCharacter::Move);
 
@@ -64,6 +82,133 @@ void AilkCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	{
 		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input Component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
+}
+
+
+
+void AilkCharacter::PerformInteractionCheck()
+{
+    InteractionData.LastInteractionCheckTime = GetWorld()->GetTimeSeconds();
+
+    FVector TraceStart{ GetFirstPersonCameraComponent()->GetComponentLocation()};
+    FVector TraceEnd{ TraceStart + (GetViewRotation().Vector() * InteractionCheckDistance) };
+
+
+    DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Purple, false, 1.0f, 0 , 2.0f);
+
+    FCollisionQueryParams QueryParams;
+    QueryParams.AddIgnoredActor(this);
+    FHitResult TraceHit;
+
+    if (GetWorld()->LineTraceSingleByChannel(TraceHit, TraceStart, TraceEnd, ECC_Visibility, QueryParams))
+    {
+        if (TraceHit.GetActor()->GetClass()->ImplementsInterface(UInteractionInterface::StaticClass()))
+        {
+            const float Distance = (TraceStart - TraceHit.ImpactPoint).Size();
+             
+            if (TraceHit.GetActor() != InteractionData.CurrentInteractable && Distance <= InteractionCheckDistance)
+            {
+                FoundInteractable(TraceHit.GetActor());
+                return;
+            }
+            if (TraceHit.GetActor() == InteractionData.CurrentInteractable)
+            {
+                // Still looking at same interactable
+                return;
+            }
+        }
+   }
+    NoInteractableFound();
+}
+
+void AilkCharacter::FoundInteractable(AActor* NewInteractable)
+{
+    if(IsInteracting())
+    {
+        EndInteract();
+    }   
+
+    if(InteractionData.CurrentInteractable)
+    {
+        TargetInteractable = InteractionData.CurrentInteractable;
+        TargetInteractable->EndFocus();
+
+    }
+
+    InteractionData.CurrentInteractable = NewInteractable;
+    TargetInteractable = NewInteractable;
+
+    TargetInteractable->BeginFocus();
+}
+
+void AilkCharacter::NoInteractableFound()
+{
+    if(IsInteracting())
+    {
+        GetWorldTimerManager().ClearTimer(TimerHandle_Interaction);
+    }
+
+    if(InteractionData.CurrentInteractable)
+    {
+            if(IsValid(TargetInteractable.GetObject()))
+            {
+                TargetInteractable->EndFocus();
+            }
+    }
+
+    //HIDE INTERACTION WIDGET
+    InteractionData.CurrentInteractable = nullptr;
+    TargetInteractable = nullptr;
+}
+
+
+void AilkCharacter::BeginInteract()
+{
+    //Verify noting has change with the interactable since begining interaction
+    PerformInteractionCheck();
+
+    if(InteractionData.CurrentInteractable)
+    {
+        if (IsValid(TargetInteractable.GetObject()))
+        {
+            TargetInteractable->EndFocus();
+
+            if (FMath::IsNearlyZero(TargetInteractable->InteractableData.InteractionDuration,0.1f))
+            {
+                Interact();
+            }
+            else
+            {
+                GetWorldTimerManager().SetTimer(
+                    TimerHandle_Interaction,
+                    this,
+                    &AilkCharacter::Interact,
+                    TargetInteractable->InteractableData.InteractionDuration,
+                    false);
+            }
+        }
+    }
+}
+
+void AilkCharacter::EndInteract()
+{
+        GetWorldTimerManager().ClearTimer(TimerHandle_Interaction);
+
+        if(IsValid(TargetInteractable.GetObject()))
+        {
+            TargetInteractable->EndInteract();
+        }
+    
+}
+
+void AilkCharacter::Interact()
+{
+    GetWorldTimerManager().ClearTimer(TimerHandle_Interaction);
+
+    if (IsValid(TargetInteractable.GetObject()))
+    {
+        TargetInteractable->Interact();
+    }
 }
 
 
@@ -92,3 +237,5 @@ void AilkCharacter::Look(const FInputActionValue& Value)
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
 }
+
+
