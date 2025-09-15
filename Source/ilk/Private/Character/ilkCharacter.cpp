@@ -10,6 +10,7 @@
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
 #include "DrawDebugHelpers.h"
+#include "UserInterface/PlayerHUD.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -44,6 +45,9 @@ void AilkCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
+    HUD = Cast<APlayerHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+
 }
 
 void AilkCharacter::Tick(float DeltaTime)
@@ -104,9 +108,8 @@ void AilkCharacter::PerformInteractionCheck()
     {
         if (TraceHit.GetActor()->GetClass()->ImplementsInterface(UInteractionInterface::StaticClass()))
         {
-            const float Distance = (TraceStart - TraceHit.ImpactPoint).Size();
              
-            if (TraceHit.GetActor() != InteractionData.CurrentInteractable && Distance <= InteractionCheckDistance)
+            if (TraceHit.GetActor() != InteractionData.CurrentInteractable)
             {
                 FoundInteractable(TraceHit.GetActor());
                 return;
@@ -138,6 +141,8 @@ void AilkCharacter::FoundInteractable(AActor* NewInteractable)
     InteractionData.CurrentInteractable = NewInteractable;
     TargetInteractable = NewInteractable;
 
+    HUD->UpdateInteractionWidget(&TargetInteractable->InteractableData);
+
     TargetInteractable->BeginFocus();
 }
 
@@ -157,6 +162,8 @@ void AilkCharacter::NoInteractableFound()
     }
 
     //HIDE INTERACTION WIDGET
+
+    HUD->HideInteractionWidget();
     InteractionData.CurrentInteractable = nullptr;
     TargetInteractable = nullptr;
 }
@@ -207,7 +214,7 @@ void AilkCharacter::Interact()
 
     if (IsValid(TargetInteractable.GetObject()))
     {
-        TargetInteractable->Interact();
+        TargetInteractable->Interact(this);
     }
 }
 

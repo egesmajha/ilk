@@ -18,6 +18,8 @@ AInterfaceTestActor::AInterfaceTestActor()
 void AInterfaceTestActor::BeginPlay()
 {
 	Super::BeginPlay();
+
+    InteractableData = InstanceInteractableData;
 	
 }
 
@@ -54,7 +56,7 @@ void AInterfaceTestActor::EndInteract()
     UE_LOG(LogTemp, Warning, TEXT("Calling End Interact Override"));
 }
 
-void AInterfaceTestActor::Interact()
+void AInterfaceTestActor::Interact(AilkCharacter* PlayerCharacter)
 {
     UE_LOG(LogTemp, Warning, TEXT("Calling Interact Override"));
 }

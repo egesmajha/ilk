@@ -14,7 +14,7 @@ UItemBase* UItemBase::CharacterItemCopy() const
     ItemCopy->ID = this->ID;    
     ItemCopy->Quantity = this->Quantity;
     ItemCopy->ItemType = this->ItemType;
-    ItemCopy->Statics = this->Statics;  
+    ItemCopy->ItemStatics = this->ItemStatics;  
     ItemCopy->TextData = this->TextData;
     ItemCopy->NumericData = this->NumericData;
     ItemCopy->AssetData = this->AssetData;

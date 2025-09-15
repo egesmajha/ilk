@@ -15,6 +15,7 @@ class UCameraComponent;
 class UInputAction;
 class UInputMappingContext;
 struct FInputActionValue;
+class APlayerHUD;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -91,6 +92,10 @@ public:
 protected:
 
     //PROPERTIES AND VARIABLES
+
+    UPROPERTY()
+    APlayerHUD* HUD;
+
     UPROPERTY(VisibleAnywhere, Category = "Character | Interaction")
     TScriptInterface<IInteractionInterface> TargetInteractable;
 

@@ -23,25 +23,25 @@ public:
     //UPROPERTY()
    //UInventoryComponent* OwningInventory;
 
-    UPROPERTY(VisibleAnywhere, Category = "ItemData", meta = (UIMin=1, UIMax=100))
+    UPROPERTY(VisibleAnywhere, Category = "Item")
     int32 Quantity;
 
-    UPROPERTY(EditAnywhere, Category = "ItemData")
+    UPROPERTY(VisibleAnywhere, Category = "Item")
     FName ID;
 
-    UPROPERTY(EditAnywhere, Category = "ItemData")
+    UPROPERTY(VisibleAnywhere, Category = "Item")
     EItemType ItemType;
 
-    UPROPERTY(EditAnywhere, Category = "ItemData")
-    FItemStatics Statics;
+    UPROPERTY(VisibleAnywhere, Category = "Item")
+    FItemStatics ItemStatics;
 
-    UPROPERTY(EditAnywhere, Category = "ItemData")
+    UPROPERTY(VisibleAnywhere, Category = "Item")
     FItemTextData TextData;
 
-    UPROPERTY(EditAnywhere, Category = "ItemData")
+    UPROPERTY(VisibleAnywhere, Category = "Item")
     FItemNumericData NumericData;
 
-    UPROPERTY(EditAnywhere, Category = "ItemData")
+    UPROPERTY(VisibleAnywhere, Category = "Item")
     FItemAssetData AssetData;
 
     //FUNCTIONS
@@ -68,6 +68,6 @@ protected:
 
     bool operator==(const FName& OtherID) const
     {
-        return ID == OtherID;
+        return this->ID == OtherID;
     }
 };
