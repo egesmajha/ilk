@@ -67,10 +67,10 @@ void AilkCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
         // Interacting
- /*       EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AilkCharacter::BeginInteract);
-        EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AilkCharacter::EndInteract);*/
-        PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &AilkCharacter::BeginInteract);
-        PlayerInputComponent->BindAction("Interact", IE_Released, this, &AilkCharacter::EndInteract);
+       EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AilkCharacter::BeginInteract);
+        EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AilkCharacter::EndInteract);
+        /*PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &AilkCharacter::BeginInteract);
+        PlayerInputComponent->BindAction("Interact", IE_Released, this, &AilkCharacter::EndInteract);*/
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AilkCharacter::Move);
@@ -171,7 +171,7 @@ void AilkCharacter::BeginInteract()
     {
         if (IsValid(TargetInteractable.GetObject()))
         {
-            TargetInteractable->EndFocus();
+            TargetInteractable->BeginInteract();
 
             if (FMath::IsNearlyZero(TargetInteractable->InteractableData.InteractionDuration,0.1f))
             {
