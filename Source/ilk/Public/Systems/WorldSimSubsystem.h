@@ -18,7 +18,7 @@ public:
 
     // 1.0 => 1 saniye = 1 oyun saati
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldSim|Time", meta = (ClampMin = "0.0"))
-    float TimeScale = 0.1f;
+    float TimeScale = 0.5f;
 
     // --- Tickable ---
     virtual void Tick(float DeltaTime) override;
@@ -42,17 +42,17 @@ public:
 
     // --- Intensity ayarlarý ---
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldSim|Sun")
-    float MinIntensity = 0.02f; // gece
+    float MinIntensity = 0.01f; // gece
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldSim|Sun")
     float MaxIntensity = 3.0f;  // gündüz
 
     // --- Gündüz/gece zamanlarý ---
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldSim|Sun")
-    float DawnStartHour = 7.0f;      // aydýnlanma baþý
+    float DawnStartHour = 9.0f;      // aydýnlanma baþý
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldSim|Sun")
-    float DuskStartHour = 20.0f;     // kararma baþý
+    float DuskStartHour = 18.0f;     // kararma baþý
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WorldSim|Sun", meta = (ClampMin = "0.1", ClampMax = "3.0"))
     float TransitionHours = 4.0f;    // geçiþin yumuþaklýðý
