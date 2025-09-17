@@ -36,6 +36,8 @@ void UInventoryPanel::SetInfoText() const
         InventoryReference->GetInventoryContents().Num(),
         InventoryReference->GetSlotsCapacity()
     ));
+
+
 }
 
 void UInventoryPanel::RefreshInventory()
@@ -51,7 +53,7 @@ void UInventoryPanel::RefreshInventory()
             
             InventoryPanel->AddChildToWrapBox(ItemSlot);
         }
-
+        SetInfoText();
        }
 }
 
