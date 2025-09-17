@@ -13,6 +13,11 @@ enum class EItemType : uint8
 {
     Weed        UMETA(DisplayName = "Weed"),
     Cash         UMETA(DisplayName = "Cash"),
+    Drug        UMETA(DisplayName = "Drug"),
+    Medical     UMETA(DisplayName = "Medical"),
+    Food        UMETA(DisplayName = "Food"),
+    Weapon      UMETA(DisplayName = "Weapon"),
+    Ammo        UMETA(DisplayName = "Ammo"),
     Mundane   UMETA(DisplayName = "Mundane"),
 };
 
@@ -20,9 +25,14 @@ USTRUCT()
 struct FItemStatics
 {
     GENERATED_BODY()
+    //ITEM STATICS ADDED HERE
+    UPROPERTY(EditAnywhere)
+    float Quality;
 
     UPROPERTY(EditAnywhere)
-    float Amount;
+    float SellValue;
+    
+    
 
 
 };
@@ -78,6 +88,12 @@ struct FItemData : public FTableRowBase
 
     UPROPERTY(EditAnywhere, Category = "ItemData")
     FItemStatics Statics;
+
+    UPROPERTY(EditAnywhere, Category = "ItemData")
+    FItemStatics SellValue;
+
+    UPROPERTY(EditAnywhere, Category = "ItemData")
+    FItemStatics Quality;
 
     UPROPERTY(EditAnywhere, Category = "ItemData")
     FItemTextData TextData;

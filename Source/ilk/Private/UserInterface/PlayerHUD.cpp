@@ -51,8 +51,27 @@ void APlayerHUD::HideMenu()
     }
 }
 
+void APlayerHUD::ToggleMenu()
+{
+    if(bIsMainMenuVisible)
+    {
+        HideMenu();
 
-void APlayerHUD::ShowInteractionWidget()
+        const FInputModeGameOnly InputMode;
+        GetOwningPlayerController()->SetInputMode(InputMode);
+        GetOwningPlayerController()->bShowMouseCursor = false;
+    }
+    else
+    {
+        DispalyMenu();
+
+        const FInputModeGameAndUI InputMode;
+        GetOwningPlayerController()->SetInputMode(InputMode);
+        GetOwningPlayerController()->bShowMouseCursor = true;
+    }
+}
+
+void APlayerHUD::ShowInteractionWidget() const
 {
     if (InteractionWidget)
     {
@@ -61,7 +80,7 @@ void APlayerHUD::ShowInteractionWidget()
 }
 
 
-void APlayerHUD::HideInteractionWidget()
+void APlayerHUD::HideInteractionWidget() const
 {
     if (InteractionWidget)
     {

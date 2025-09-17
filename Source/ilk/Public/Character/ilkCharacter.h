@@ -62,6 +62,9 @@ class AilkCharacter : public ACharacter
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
     UInputAction* InteractAction;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+    UInputAction* ToggleMenuAction;
+
 
 
 
@@ -127,6 +130,7 @@ protected:
     virtual void BeginPlay();
     virtual void Tick(float DeltaTime) override;
 
+    void ToggleMenu();
 
 
 	/** Called for movement input */

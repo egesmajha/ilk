@@ -34,9 +34,11 @@ public:
 
     void DispalyMenu();
     void HideMenu();
+    UFUNCTION()
+    void ToggleMenu();  
 
-    void ShowInteractionWidget();
-    void HideInteractionWidget();
+    void ShowInteractionWidget() const;
+    void HideInteractionWidget() const;
     void UpdateInteractionWidget(const FInteractableData* InteractableData);
 
 protected:
