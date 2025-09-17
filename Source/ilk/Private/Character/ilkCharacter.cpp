@@ -1,16 +1,21 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "Character/ilkCharacter.h"
+#include "Components/InventoryComponent.h"
+#include "UserInterface/PlayerHUD.h"
+
+//Engine
+#include "Components/CapsuleComponent.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
-#include "Components/SkeletalMeshComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
+
 #include "DrawDebugHelpers.h"
-#include "UserInterface/PlayerHUD.h"
+
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -28,6 +33,10 @@ AilkCharacter::AilkCharacter()
 	FirstPersonCameraComponent->SetRelativeLocation(FVector(-10.f, 0.f, 60.f)); // Position the camera
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
+    PlayerInventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("PlayerInventory"));
+    PlayerInventory->SetSlotsCapacity(20);
+    PlayerInventory->SetWeightCapacity(100.0f);
+
 	// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
 	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
 	Mesh1P->SetOnlyOwnerSee(true);
@@ -40,6 +49,8 @@ AilkCharacter::AilkCharacter()
     InteractionCheckFrequency = 0.1f;
     InteractionCheckDistance = 225.0f;
 }
+
+
 
 void AilkCharacter::BeginPlay()
 {
@@ -215,6 +226,14 @@ void AilkCharacter::Interact()
     if (IsValid(TargetInteractable.GetObject()))
     {
         TargetInteractable->Interact(this);
+    }
+}
+
+void AilkCharacter::UpdateInteractionWidget() const
+{
+    if (IsValid(TargetInteractable.GetObject()))
+    {
+        HUD->UpdateInteractionWidget(&TargetInteractable->InteractableData);
     }
 }
 

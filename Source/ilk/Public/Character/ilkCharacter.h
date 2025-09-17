@@ -13,6 +13,7 @@ class UInputComponent;
 class USkeletalMeshComponent;
 class UCameraComponent;
 class UInputAction;
+class UInventoryComponent;
 class UInputMappingContext;
 struct FInputActionValue;
 class APlayerHUD;
@@ -89,6 +90,10 @@ public:
 
     FORCEINLINE bool IsInteracting() const { return GetWorldTimerManager().IsTimerActive(TimerHandle_Interaction); };
 
+    FORCEINLINE UInventoryComponent* GetInventory() const { return PlayerInventory; };
+
+    void UpdateInteractionWidget() const;
+
 protected:
 
     //PROPERTIES AND VARIABLES
@@ -98,6 +103,9 @@ protected:
 
     UPROPERTY(VisibleAnywhere, Category = "Character | Interaction")
     TScriptInterface<IInteractionInterface> TargetInteractable;
+
+    UPROPERTY(VisibleAnywhere, Category = "Character | Inventory")
+    UInventoryComponent* PlayerInventory;
 
     float InteractionCheckFrequency;
 

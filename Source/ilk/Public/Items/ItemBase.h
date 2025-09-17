@@ -7,6 +7,7 @@
 #include "Character/ilkCharacter.h"
 #include "ItemBase.generated.h"
 
+class UInventoryComponent;
 /**
  * 
  */
@@ -20,8 +21,8 @@ public:
 
     //PROPERTIES AND VARIABLES
 
-    //UPROPERTY()
-   //UInventoryComponent* OwningInventory;
+    UPROPERTY()
+   UInventoryComponent* OwningInventory;
 
     UPROPERTY(VisibleAnywhere, Category = "Item")
     int32 Quantity;
@@ -44,12 +45,17 @@ public:
     UPROPERTY(VisibleAnywhere, Category = "Item")
     FItemAssetData AssetData;
 
+    bool bIsCopy;
+    bool bIsPickup;
+
+
     //FUNCTIONS
     UItemBase();
 
+    void ResetItemFlags();
 
     UFUNCTION(Category = "Item")
-    UItemBase* CharacterItemCopy() const;
+    UItemBase* CreateItemCopy() const;
 
     UFUNCTION(Category = "Item")
     FORCEINLINE float GetItemStackWeight() const { return Quantity * NumericData.Weight; };
