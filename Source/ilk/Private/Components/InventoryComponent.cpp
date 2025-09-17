@@ -17,7 +17,7 @@ UInventoryComponent::UInventoryComponent()
 
 void UInventoryComponent::BeginPlay()
 {
-
+    Super::BeginPlay();
 }
 
 
@@ -130,7 +130,8 @@ FItemAddResult UInventoryComponent::HandleNonStackableItems(UItemBase* InputItem
     }
 
     AddNewItem(InputItem, 1);
-    return FItemAddResult::AddedAll(1, FText::Format(FText::FromString(" Successfully added single {0} {1} to the inventory."), InputItem->TextData.Name));
+    return FItemAddResult::AddedAll(
+        1, FText::Format(FText::FromString("Successfully added a single {0} to the inventory."), InputItem->TextData.Name));
  }
 
 int32 UInventoryComponent::HandleStackableItems(UItemBase* InputItem, int32 RequsetedAddAmount)

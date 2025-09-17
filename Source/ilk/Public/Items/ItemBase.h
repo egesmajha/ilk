@@ -55,6 +55,9 @@ public:
     void ResetItemFlags();
 
     UFUNCTION(Category = "Item")
+    FORCEINLINE UInventoryComponent* GetOwningInventory() const { return Cast<UInventoryComponent>(GetOuter()); }
+
+    UFUNCTION(Category = "Item")
     UItemBase* CreateItemCopy() const;
 
     UFUNCTION(Category = "Item")
@@ -69,6 +72,7 @@ public:
     UFUNCTION(Category = "Item")
     void SetQuantity(const int32 NewQuantity);
 
+    UFUNCTION(Category = "Item")
     virtual void Use(AilkCharacter* Character);
 protected:
 

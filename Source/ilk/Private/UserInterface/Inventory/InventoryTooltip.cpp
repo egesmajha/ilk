@@ -4,12 +4,15 @@
 #include "UserInterface/Inventory/InventoryTooltip.h"
 #include "UserInterface/Inventory/InventoryItemSlot.h"
 #include "Items/ItemBase.h"
-#include "Data/ItemDataStructs.h"
+
 
 
 void UInventoryTooltip::NativeConstruct()
 {
-    UItemBase* ItemBeingHovered = InventorySlotBeingHovered->GetItemReference();
+    Super::NativeConstruct();
+
+   if(const UItemBase* ItemBeingHovered = InventorySlotBeingHovered->GetItemReference())
+   { 
 
     switch (ItemBeingHovered->ItemType)
     {
@@ -40,13 +43,14 @@ void UInventoryTooltip::NativeConstruct()
     case EItemType::Ammo:
         ItemType->SetText(FText::FromString("Ammo"));
         break;
-    default:
+    default:;
+    }
         ItemName->SetText(ItemBeingHovered->TextData.Name);
         UsageText->SetText(ItemBeingHovered->TextData.InteractionText);
         ItemDescription->SetText(ItemBeingHovered->TextData.Description);
         SellValue->SetText(FText::AsNumber(ItemBeingHovered->ItemStatics.SellValue));
         Quality->SetText(FText::AsNumber(ItemBeingHovered->ItemStatics.Quality));
-        StackWeight->SetText(FText::AsNumber(ItemBeingHovered->GetItemStackWeight()));
+        //StackWeight->SetText(FText::AsNumber(ItemBeingHovered->GetItemStackWeight()));
 
 
         if (ItemBeingHovered->NumericData.bIsStackable)
@@ -57,6 +61,7 @@ void UInventoryTooltip::NativeConstruct()
         {
             MaxStackSize->SetVisibility(ESlateVisibility::Collapsed);
         }
-        break;
-    }
+   }
+
+    
 }

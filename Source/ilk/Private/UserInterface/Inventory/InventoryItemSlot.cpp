@@ -1,14 +1,20 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "UserInterface/Inventory/InventoryItemSlot.h"
+#include "UserInterface/Inventory/InventoryTooltip.h"
+#include "UserInterface/Inventory/DragItemVisual.h"
+#include "UserInterface/Inventory/InventoryPanel.h"
+#include "Items/ItemBase.h"
+
+// engine
+#include "Components/Border.h"
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
-#include "Components/Border.h"
 
 
 
 void UInventoryItemSlot::NativeOnInitialized()
 {
-    if(ToolTipClass)
+    if (ToolTipClass)
     {
         UInventoryTooltip* ToolTip = CreateWidget<UInventoryTooltip>(this, ToolTipClass);
         ToolTip->InventorySlotBeingHovered = this;
@@ -18,9 +24,10 @@ void UInventoryItemSlot::NativeOnInitialized()
 
 void UInventoryItemSlot::NativeConstruct()
 {// For additivte brush or color
+    Super::NativeConstruct();   
     ItemIcon->SetBrushFromTexture(ItemReference->AssetData.Icon);
 
-    if(ItemReference->NumericData.bIsStackable)
+    if (ItemReference->NumericData.bIsStackable)
     {
         ItemQuantitiy->SetText(FText::AsNumber(ItemReference->Quantity));
     }

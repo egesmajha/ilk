@@ -6,7 +6,15 @@
 #include "ItemDataStructs.generated.h"
 
 
-
+UENUM()
+enum class EItemQuality : uint8
+{
+    Shoddy UMETA(DisplayName = "Shoddy"),
+    Common UMETA(DisplayName = "Common"),
+    Quality UMETA(DisplayName = "Quality"),
+    Masterwork UMETA(DisplayName = "Masterwork"),
+    Grandmaster UMETA(DisplayName = "Grandmaster")
+};
 
 UENUM()
 enum class EItemType : uint8
@@ -86,14 +94,12 @@ struct FItemData : public FTableRowBase
     UPROPERTY(EditAnywhere,Category ="ItemData")
     EItemType ItemType;
 
+
     UPROPERTY(EditAnywhere, Category = "ItemData")
     FItemStatics Statics;
 
-    UPROPERTY(EditAnywhere, Category = "ItemData")
-    FItemStatics SellValue;
-
-    UPROPERTY(EditAnywhere, Category = "ItemData")
-    FItemStatics Quality;
+    UPROPERTY(EditAnywhere, Category = "Item Data")
+    EItemQuality ItemQuality;
 
     UPROPERTY(EditAnywhere, Category = "ItemData")
     FItemTextData TextData;

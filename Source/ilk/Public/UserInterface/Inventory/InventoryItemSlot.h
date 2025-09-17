@@ -14,18 +14,18 @@ class UDragItemVisual;
 class UItemBase;
 
 /**
- * 
+ *
  */
 UCLASS()
 class ILK_API UInventoryItemSlot : public UUserWidget
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+
 
 public:
-    FORCEINLINE void SetItemReference(class UItemBase* ItemIn) { ItemReference = ItemIn; }; 
+    FORCEINLINE void SetItemReference(class UItemBase* ItemIn) { ItemReference = ItemIn; };
     FORCEINLINE UItemBase* GetItemReference() const { return ItemReference; };
-  
+
 
 protected:
 
@@ -36,7 +36,7 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Inventory Slot")
     TSubclassOf<UInventoryTooltip> ToolTipClass;
 
-    UPROPERTY(VisibleAnywhere,Category = "Inventory Slot")
+    UPROPERTY(VisibleAnywhere, Category = "Inventory Slot")
     UItemBase* ItemReference;
 
     UPROPERTY(VisibleAnywhere, Category = "Inventory Slot")
@@ -44,7 +44,7 @@ protected:
 
     UPROPERTY(VisibleAnywhere, Category = "Inventory Slot")
     UImage* ItemIcon;
-    
+
     UPROPERTY(VisibleAnywhere, Category = "Inventory Slot")
     UTextBlock* ItemQuantitiy;
 
