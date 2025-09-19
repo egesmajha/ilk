@@ -17,5 +17,5 @@ class ILK_API UUGeneticAlgorithmManager : public UObject
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Genetics")
-    static void CrossBreed(UStrainAttributeSet* ParentA, UStrainAttributeSet* ParentB, UStrainAttributeSet*& OutChild);
+    static void CrossBreed(UStrainAttributeSet* ParentA, UStrainAttributeSet* ParentB, UStrainAttributeSet*& NewStrain);
 };
