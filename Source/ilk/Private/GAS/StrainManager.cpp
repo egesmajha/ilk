@@ -2,6 +2,8 @@
 
 
 #include "GAS/StrainManager.h"
+#include "GAS/GeneticAlgorithmManager.h"
+#include "GAS/StrainAttributeSet.h"
 
 UStrainAttributeSet* UStrainManager::BreedStrains(UStrainAttributeSet* ParentA, UStrainAttributeSet* ParentB)
 {

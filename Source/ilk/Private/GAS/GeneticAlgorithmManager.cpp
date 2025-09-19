@@ -2,6 +2,7 @@
 
 
 #include "GAS/GeneticAlgorithmManager.h"
+#include "GAS/StrainAttributeSet.h"
 
 
 void UGeneticAlgorithmManager::CrossBreed(UStrainAttributeSet* ParentA, UStrainAttributeSet* ParentB, UStrainAttributeSet*& OutChild)

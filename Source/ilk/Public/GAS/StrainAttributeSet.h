@@ -6,6 +6,7 @@
 #include "Engine/DataTable.h" 
 #include "Data/ItemDataStructs.h"
 #include "AbilitySystemComponent.h"
+#include "AttributeSet.h"
 #include "StrainAttributeSet.generated.h"
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
     GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
