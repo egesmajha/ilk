@@ -25,17 +25,38 @@ UStrainAttributeSet::UStrainAttributeSet()
 }
 
 
-void UStrainAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, THC, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, CBD, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, Yield, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, TempResistance, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, HumidityResistance, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, IndicaRatio, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, SativaRatio, COND_None, REPNOTIFY_Always);
-}
+void UStrainAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const  
+{  
+   Super::GetLifetimeReplicatedProps(OutLifetimeProps);  
+
+   // Ensure the CBD property is marked as replicated and accessible  
+   DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, THC, COND_None, REPNOTIFY_Always);  
+   DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, CBD, COND_None, REPNOTIFY_Always);  
+   DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, Yield, COND_None, REPNOTIFY_Always);  
+   DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, TempResistance, COND_None, REPNOTIFY_Always);  
+   DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, HumidityResistance, COND_None, REPNOTIFY_Always);  
+   DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, IndicaRatio, COND_None, REPNOTIFY_Always);  
+   DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, SativaRatio, COND_None, REPNOTIFY_Always);  
+}    // Ensure the CBD property is properly declared and accessible  
+    UCLASS()  
+    class ILK_API UStrainAttributeSet : public UAttributeSet  
+    {  
+       GENERATED_BODY()  
+
+    public:  
+       UStrainAttributeSet();  
+
+       // Declare the CBD property as replicated  
+       UPROPERTY(BlueprintReadWrite, ReplicatedUsing = OnRep_CBD, Category = "Attributes")  
+       FGameplayAttributeData CBD;  
+
+       // Replication notification function for CBD  
+       UFUNCTION()  
+       void OnRep_CBD(const FGameplayAttributeData& OldValue);  
+
+       // Other properties and methods...  
+    };
+
 void UStrainAttributeSet::OnRep_THC(const FGameplayAttributeData& OldValue)
 {
     GAMEPLAYATTRIBUTE_REPNOTIFY(UStrainAttributeSet, THC, OldValue);

@@ -5,13 +5,13 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "StrainAttributeSet.h"
-#include "UGeneticAlgorithmManager.generated.h"
+#include "GeneticAlgorithmManager.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ILK_API UUGeneticAlgorithmManager : public UObject
+class ILK_API UGeneticAlgorithmManager : public UObject
 {
 	GENERATED_BODY()
 

@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "StrainAttributeSet.h"
-#include "UGeneticAlgorithmManager.h"
+#include "GeneticAlgorithmManager.h"
 #include "StrainManager.generated.h"
 
 /**
