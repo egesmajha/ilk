@@ -13,6 +13,7 @@
     GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
     GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
     GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
+
 DECLARE_MULTICAST_DELEGATE_FourParams(FOnAttributeChangeDelegate, const FGameplayAttribute& /*Attribute*/, float /*NewValue*/, float /*OldValue*/, UObject* /*SourceObject*/);
 
 /**
@@ -59,6 +60,10 @@ public:
 
         UFUNCTION(BlueprintCallable, Category = "Strain")
     void InitializeFromDataTable(UDataTable* DataTable, FName RowName);
+
+   
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 
 
 protected:
