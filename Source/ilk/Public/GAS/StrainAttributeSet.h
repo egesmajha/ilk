@@ -17,14 +17,13 @@ class ILK_API UStrainAttributeSet : public UAttributeSet
 
 
 public:
-    UPROPERTY(EditAnywhere.BlueprintReadWrite, Category = "Genetics")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genetics")
     FGameplayAttributeData THC;
     ATTRIBUTE_ACCESSORS(UStrainAttributeSet, THC);
 
-    UPROPERTY(EditAnywhere.BlueprintReadWrite, Category = "Genetics")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genetics")
     FGameplayAttributeData CBD;
     ATTRIBUTE_ACCESSORS(UStrainAttributeSet, CBD);
-
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genetics")
     FGameplayAttributeData Yield;
