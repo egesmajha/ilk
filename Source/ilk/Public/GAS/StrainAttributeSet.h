@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AttributeSet.h"
 #include "Engine/DataTable.h" 
 #include "Data/ItemDataStructs.h"
 #include "AbilitySystemComponent.h"

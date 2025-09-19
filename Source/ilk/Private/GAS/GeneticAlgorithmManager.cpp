@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GAS/UGeneticAlgorithmManager.h"
+#include "GAS/GeneticAlgorithmManager.h"
 
 
 void UGeneticAlgorithmManager::CrossBreed(UStrainAttributeSet* ParentA, UStrainAttributeSet* ParentB, UStrainAttributeSet*& OutChild)

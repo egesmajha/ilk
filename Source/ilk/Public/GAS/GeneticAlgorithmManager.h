@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "StrainAttributeSet.h"
+#include "GAS/StrainAttributeSet.h"
 #include "GeneticAlgorithmManager.generated.h"
 
 /**

@@ -8,7 +8,7 @@ UStrainAttributeSet* UStrainManager::BreedStrains(UStrainAttributeSet* ParentA, 
     if (!ParentA || !ParentB) return nullptr;
     UStrainAttributeSet* NewStrain = NewObject<UStrainAttributeSet>(this, UStrainAttributeSet::StaticClass());
 
-    UUGeneticAlgorithmManager::CrossBreed(ParentA, ParentB, NewStrain);
+    UGeneticAlgorithmManager::CrossBreed(ParentA, ParentB, NewStrain);
 
 
     AllStrains.Add(NewStrain);
