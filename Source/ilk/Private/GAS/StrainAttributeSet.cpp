@@ -103,13 +103,14 @@ void UStrainAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-    DOREPLIFETIME(UStrainAttributeSet, THC, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME(UStrainAttributeSet, CBD, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME(UStrainAttributeSet, Yield, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME(UStrainAttributeSet, TempResistance, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME(UStrainAttributeSet, HumidityResistance, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME(UStrainAttributeSet, IndicaRatio, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME(UStrainAttributeSet, SativaRatio, COND_None, REPNOTIFY_Always);
+
+    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, Yield, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, THC, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, CBD, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, TempResistance, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, HumidityResistance, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, IndicaRatio, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, SativaRatio, COND_None, REPNOTIFY_Always);
 }
 
 
