@@ -16,9 +16,9 @@ class ILK_API UStrainManager : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintReadOnly, Category = "Database")
+    UPROPERTY(CPF_BlueprintReadOnly, Category = "Database")
     TArray<UStrainAttributeSet*> AllStrains; 
 
-    UFUNCTION(BlueprintCallable, Category = "Breeding")
+    UFUNCTION(BlueprintCallable, Ctegory = "Breeding")
     UStrainAttributeSet* BreedStrains(UStrainAttributeSet* ParentA, UStrainAttributeSet* ParentB);
 };
