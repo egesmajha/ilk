@@ -29,6 +29,33 @@ enum class EItemType : uint8
     Mundane   UMETA(DisplayName = "Mundane"),
 };
 
+USTRUCT(BlueprintType)
+struct FStrainDataRow : public FTableRowBase
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float THC;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float CBD;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float Yield;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float TempResistance;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float HumidityResistance;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float IndicaRatio;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float SativaRatio;
+};
+
 USTRUCT()
 struct FItemStatics
 {
@@ -40,6 +67,7 @@ struct FItemStatics
     UPROPERTY(EditAnywhere)
     float SellValue;
     
+  
     
 
 

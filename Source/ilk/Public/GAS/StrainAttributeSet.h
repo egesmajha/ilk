@@ -4,8 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
+#include "Engine/DataTable.h" 
+#include "Data/ItemDataStructs.h"
 #include "AbilitySystemComponent.h"
 #include "StrainAttributeSet.generated.h"
+#define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
+    GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
+    GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
+    GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
+    GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 /**
  * 
@@ -17,31 +24,61 @@ class ILK_API UStrainAttributeSet : public UAttributeSet
 
 
 public:
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genetics")
+    UStrainAttributeSet();
+
+    UPROPERTY(BlueprintReadOnly, Category = "Genetics", ReplicatedUsing = OnRep_THC)
     FGameplayAttributeData THC;
-    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, THC);
+    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, THC)
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genetics")
+
+        UPROPERTY(BlueprintReadOnly, Category = "Genetics", ReplicatedUsing = OnRep_CBD)
     FGameplayAttributeData CBD;
-    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, CBD);
+    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, CBD)
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genetics")
+        UPROPERTY(BlueprintReadOnly, Category = "Genetics", ReplicatedUsing = OnRep_Yield)
     FGameplayAttributeData Yield;
-    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, Yield);
+    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, Yield)
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genetics")
+        UPROPERTY(BlueprintReadOnly, Category = "Genetics", ReplicatedUsing = OnRep_TempResistance)
     FGameplayAttributeData TempResistance;
-    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, TempResistance);
+    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, TempResistance)
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genetics")
+        UPROPERTY(BlueprintReadOnly, Category = "Genetics", ReplicatedUsing = OnRep_HumidityResistance)
     FGameplayAttributeData HumidityResistance;
-    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, HumidityResistance);
+    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, HumidityResistance)
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genetics")
+        UPROPERTY(BlueprintReadOnly, Category = "Genetics", ReplicatedUsing = OnRep_IndicaRatio)
     FGameplayAttributeData IndicaRatio;
-    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, IndicaRatio);
+    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, IndicaRatio)
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genetics")
+        UPROPERTY(BlueprintReadOnly, Category = "Genetics", ReplicatedUsing = OnRep_SativaRatio)
     FGameplayAttributeData SativaRatio;
-    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, SativaRatio);
+    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, SativaRatio)
+
+
+        UFUNCTION(BlueprintCallable, Category = "Strain")
+    void InitializeFromDataTable(UDataTable* DataTable, FName RowName);
+
+
+protected:
+    UFUNCTION()
+    void OnRep_THC(const FGameplayAttributeData& OldValue);
+
+    UFUNCTION()
+    void OnRep_CBD(const FGameplayAttributeData& OldValue);
+
+    UFUNCTION()
+    void OnRep_Yield(const FGameplayAttributeData& OldValue);
+    
+    UFUNCTION()
+    void OnRep_TempResistance(const FGameplayAttributeData& OldValue);
+
+    UFUNCTION()
+    void OnRep_HumidityResistance(const FGameplayAttributeData& OldValue);
+
+    UFUNCTION()
+    void OnRep_IndicaRatio(const FGameplayAttributeData& OldValue);
+
+    UFUNCTION()
+    void OnRep_SativaRatio(const FGameplayAttributeData& OldValue);
 };
