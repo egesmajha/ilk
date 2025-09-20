@@ -30,9 +30,13 @@ enum class EItemType : uint8
 };
 
 USTRUCT(BlueprintType)
-struct FStrainDataRow : public FTableRowBase
+struct FStrainRow : public FTableRowBase
 {
     GENERATED_BODY()
+
+public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FName StrainName;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     float THC;
@@ -67,8 +71,8 @@ struct FItemStatics
     UPROPERTY(EditAnywhere)
     float SellValue;
     
-  
-    
+   
+ 
 
 
 };
