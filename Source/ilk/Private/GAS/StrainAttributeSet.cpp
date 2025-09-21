@@ -71,10 +71,11 @@ void UStrainAttributeSet::OnRep_SativaRatio(const FGameplayAttributeData& OldVal
     GAMEPLAYATTRIBUTE_REPNOTIFY(UStrainAttributeSet, SativaRatio, OldValue);
 }
 
-void UStrainAttributeSet::InitializeFromDataTable(UDataTable* DataTable, FName RowName) {
+void UStrainAttributeSet::InitializeFromDataTable(UDataTable* DataTable, FName RowName)
+{
     if (!DataTable) return;
 
-    FStrainDataRow* Row = DataTable->FindRow<FStrainDataRow>(RowName, TEXT(""));
+    FStrainDataRow* Row = DataTable->FindRow<FStrainDataRow>(RowName, TEXT("InitializeFromDataTable"));
     if (!Row) return;
 
     THC.SetBaseValue(Row->THC);

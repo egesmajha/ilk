@@ -30,7 +30,7 @@ enum class EItemType : uint8
 };
 
 USTRUCT(BlueprintType)
-struct FStrainRow : public FTableRowBase
+struct FStrainDataRow : public FTableRowBase
 {
     GENERATED_BODY()
 
