@@ -64,7 +64,7 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 
-    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
+   /* UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
     float GetTHC() const { return THC.GetCurrentValue(); }
 
     UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
@@ -83,7 +83,7 @@ public:
     float GetIndicaRatio() const { return IndicaRatio.GetCurrentValue(); }
 
     UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
-    float GetSativaRatio() const { return SativaRatio.GetCurrentValue(); }
+    float GetSativaRatio() const { return SativaRatio.GetCurrentValue(); }*/
 
 
 

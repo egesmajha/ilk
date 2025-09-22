@@ -20,6 +20,15 @@ class ILK_API AAStrainActor : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AAStrainActor();
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+     class UStaticMeshComponent* StrainMesh;
+
+     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+     class USceneComponent* Root;
+
+    
+
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
     UAbilitySystemComponent* AbilitySystemComponent;
 
