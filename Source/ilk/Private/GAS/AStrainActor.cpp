@@ -21,9 +21,14 @@ UAbilitySystemComponent* AAStrainActor::GetAbilitySystemComponent() const
 void AAStrainActor::BeginPlay()
 {
 	Super::BeginPlay();
-    if (AbilitySystemComponent && StrainAttributeSet)
+
+    if (StrainAttributeSet)
     {
-       /* AbilitySystemComponent->AddOwnedSubobject(StrainAttributeSet);*/
+        if(DataTable)
+        {
+            StrainAttributeSet->InitializeFromDataTable(DataTable, RowName);
+
+        }
     }
 }
 

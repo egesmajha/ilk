@@ -26,6 +26,12 @@ public:
     UPROPERTY()
     UStrainAttributeSet* StrainAttributeSet;
 
+    UPROPERTY(EditAnywhere,BlueprintReadOnly, Category ="Strain|Data")
+    UDataTable* DataTable;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Strain|Data")
+    FName RowName;
+
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const ;
 
 protected:
