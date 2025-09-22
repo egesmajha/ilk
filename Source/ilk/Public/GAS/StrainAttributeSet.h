@@ -64,6 +64,29 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 
+    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
+    float GetTHC() const { return THC.GetCurrentValue(); }
+
+    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
+    float GetCBD() const { return CBD.GetCurrentValue(); }
+
+    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
+    float GetYield() const { return Yield.GetCurrentValue(); }
+
+    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
+    float GetTempResistance() const { return TempResistance.GetCurrentValue(); }
+
+    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
+    float GetHumidityResistance() const { return HumidityResistance.GetCurrentValue(); }
+
+    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
+    float GetIndicaRatio() const { return IndicaRatio.GetCurrentValue(); }
+
+    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
+    float GetSativaRatio() const { return SativaRatio.GetCurrentValue(); }
+
+
+
 
 protected:
     UFUNCTION()

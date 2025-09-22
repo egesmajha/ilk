@@ -11,21 +11,7 @@
 
 UStrainAttributeSet::UStrainAttributeSet()
 {
-    // Initialize default values for attributes
-    //THC.SetBaseValue(0.f);
-    //THC.SetCurrentValue(0.f);
-    //CBD.SetBaseValue(0.f);
-    //CBD.SetCurrentValue(0.f);
-    //Yield.SetBaseValue(0.f);
-    //Yield.SetCurrentValue(0.f);
-    //TempResistance.SetBaseValue(0.f);
-    //TempResistance.SetCurrentValue(0.f);
-    //HumidityResistance.SetBaseValue(0.f);
-    //HumidityResistance.SetCurrentValue(0.f);
-    //IndicaRatio.SetBaseValue(0.f);
-    //IndicaRatio.SetCurrentValue(0.f);
-    //SativaRatio.SetBaseValue(0.f);
-    //SativaRatio.SetCurrentValue(0.f);
+  
 }
 
 
