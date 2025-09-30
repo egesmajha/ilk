@@ -28,20 +28,21 @@ void AAPotActor::PlantSeed(TSubclassOf<AAStrainActor> PlantClass)
 
     if (CurrentPlant) return;
 
-    if (StrainClass) {
+    if (StrainClass)
+    {
         FActorSpawnParameters SpawnParams;
         SpawnParams.Owner = this;
-        SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::/*AdjustIfPossibleBut*/AlwaysSpawn;
+        SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
         FVector Location = GetActorLocation() + FVector(0.f, 0.f, 50.f);
         FRotator Rotation = FRotator::ZeroRotator;
 
         CurrentPlant = GetWorld()->SpawnActor<AAStrainActor>(StrainClass, Location, Rotation, SpawnParams);
-    }
 
-    if (CurrentPlant) {
-        CurrentPlant->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
-        CurrentPlant->StartGrowth(this);
-    }
+        if (CurrentPlant)
+        {
+            CurrentPlant->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+            CurrentPlant->StartGrowth(this);
+        }
 }
 

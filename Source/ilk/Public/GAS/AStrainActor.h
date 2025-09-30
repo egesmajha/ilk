@@ -46,6 +46,9 @@ public:
 
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const ;
 
+    UPROPERTY()
+    class AAPotActor* OWningPot;
+    void StartGrowth(AAPotActor * InPot);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

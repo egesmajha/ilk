@@ -3,6 +3,7 @@
 
 #include "GAS/AStrainActor.h"
 #include "Components/StaticMeshComponent.h"
+#include "Plantation/APotActor.h"
 #include "Components/SceneComponent.h"
 
 // Sets default values
@@ -10,6 +11,7 @@ AAStrainActor::AAStrainActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+    bReplicates = true;
 
     Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
     RootComponent = Root;
@@ -25,6 +27,8 @@ UAbilitySystemComponent* AAStrainActor::GetAbilitySystemComponent() const
     return AbilitySystemComponent;
 }
 
+
+
 // Called when the game starts or when spawned
 void AAStrainActor::BeginPlay()
 {
@@ -38,6 +42,17 @@ void AAStrainActor::BeginPlay()
 
         }
     }
+
+    GrowthData.CurrentGrowth = 0.0f;
+    GrowthData.TimeElapsed = 0.0f;
+    GrowthData.bIsMature = false;
+}
+void AAStrainActor::StartGrowth(AAPotActor* InPot)
+{
+    OWningPot = InPot;
+    GrowthData.CurrentGrowth = 0.0f;
+    GrowthData.TimeElapsed = 0.0f;
+    GrowthData.bIsMature = false;
 }
 
 // Called every frame
@@ -45,16 +60,7 @@ void AAStrainActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-    /*if (AbilitySystemComponent && StrainAttributeSet) {
-        float GrowthTime = StrainAttributeSet->GetGrowthTime();
-        float CurrentGrowth = StrainAttributeSet->GetCurrentGrowth();
-
-        if (CurrentGrowth < GrowthTime)
-        {
-            StrainAttributeSet->SetCurrentGrowth(CurrentGrowth + DeltaTime);
-        }
-        else { UE_LOG(LogTemp, Warning, TEXT("Plant %s fully grown!"), *GetName()); }
-    }*/
+    
 
     if (!GrowthData.bIsMature) {
         GrowthData.TimeElapsed += DeltaTime;
@@ -63,8 +69,9 @@ void AAStrainActor::Tick(float DeltaTime)
 
         GrowthData.CurrentGrowth += EffectiveGrowthRate * DeltaTime;
 
-        if (GrowthData.CurrentGrowth >= 100.0f) {
-            GrowthData.CurrentGrowth = 100.0f;
+        float MaxGrowth = StrainAttributeSet ? StrainAttributeSet->GetGrowthTime() : 100.0f;
+        if (GrowthData.CurrentGrowth >= MaxGrowth) {
+            GrowthData.CurrentGrowth = MaxGrowth;
             GrowthData.bIsMature = true;
         }
 

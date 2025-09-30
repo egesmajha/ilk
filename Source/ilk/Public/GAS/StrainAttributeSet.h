@@ -56,13 +56,11 @@ public:
     FGameplayAttributeData SativaRatio;
     ATTRIBUTE_ACCESSORS(UStrainAttributeSet, SativaRatio)
 
-        UPROPERTY(BlueprintReadOnly, Category = "Genetics" ReplicatedUsing = OnRep_GrowthTime)
+        UPROPERTY(BlueprintReadOnly, Category = "Genetics", ReplicatedUsing = OnRep_GrowthTime)
     FGameplayAttributeData GrowthTime;
     ATTRIBUTE_ACCESSORS(UStrainAttributeSet, GrowthTime)
 
-    //    UPROPERTY(BlueprintReadOnly, Category = "Genetics", ReplicatedUsing = OnRep_CurrentGrowth)
-    //FGameplayAttributeData CurrentGrowth;
-    //ATTRIBUTE_ACCESSORS(UStrainAttributeSet, CurrentGrowth)
+
 
         UFUNCTION(BlueprintCallable, Category = "Strain")
     void InitializeFromDataTable(UDataTable* DataTable, FName RowName);
