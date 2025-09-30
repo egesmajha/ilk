@@ -58,7 +58,49 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     float SativaRatio;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float GrowthTime;
 };
+
+USTRUCT()
+struct FGrowthData
+{
+    GENERATED_BODY()
+
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float CurrentGrowth;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float GrowthRate;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float TimeElapsed;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    bool bIsMature = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float  TemperatureMultiplier = 1.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float HumidityMultiplier = 1.0f;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+    float FertilizerMultiplier = 1.0f;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+    float LightMultiplier = 1.0f;
+
+
+
+
+
+
+
+};
+
 
 USTRUCT()
 struct FItemStatics

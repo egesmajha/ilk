@@ -45,5 +45,30 @@ void AAStrainActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+    /*if (AbilitySystemComponent && StrainAttributeSet) {
+        float GrowthTime = StrainAttributeSet->GetGrowthTime();
+        float CurrentGrowth = StrainAttributeSet->GetCurrentGrowth();
+
+        if (CurrentGrowth < GrowthTime)
+        {
+            StrainAttributeSet->SetCurrentGrowth(CurrentGrowth + DeltaTime);
+        }
+        else { UE_LOG(LogTemp, Warning, TEXT("Plant %s fully grown!"), *GetName()); }
+    }*/
+
+    if (!GrowthData.bIsMature) {
+        GrowthData.TimeElapsed += DeltaTime;
+
+        float EffectiveGrowthRate = GrowthData.GrowthRate * GrowthData.TemperatureMultiplier * GrowthData.HumidityMultiplier * GrowthData.FertilizerMultiplier * GrowthData.LightMultiplier;
+
+        GrowthData.CurrentGrowth += EffectiveGrowthRate * DeltaTime;
+
+        if (GrowthData.CurrentGrowth >= 100.0f) {
+            GrowthData.CurrentGrowth = 100.0f;
+            GrowthData.bIsMature = true;
+        }
+
+    }
+
 }
 

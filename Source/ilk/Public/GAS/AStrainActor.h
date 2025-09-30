@@ -41,6 +41,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Strain|Data")
     FName RowName;
 
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Strain|Data")
+    FGrowthData GrowthData;
+
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const ;
 
 protected:

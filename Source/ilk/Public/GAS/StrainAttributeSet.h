@@ -56,6 +56,13 @@ public:
     FGameplayAttributeData SativaRatio;
     ATTRIBUTE_ACCESSORS(UStrainAttributeSet, SativaRatio)
 
+        UPROPERTY(BlueprintReadOnly, Category = "Genetics" ReplicatedUsing = OnRep_GrowthTime) 
+    FGameplayAttributeData GrowthTime;
+    ATTRIBUTE_ACCESSORS(UStrainAttributeSet, GrowthTime)
+
+    //    UPROPERTY(BlueprintReadOnly, Category = "Genetics", ReplicatedUsing = OnRep_CurrentGrowth)
+    //FGameplayAttributeData CurrentGrowth;
+    //ATTRIBUTE_ACCESSORS(UStrainAttributeSet, CurrentGrowth)
 
         UFUNCTION(BlueprintCallable, Category = "Strain")
     void InitializeFromDataTable(UDataTable* DataTable, FName RowName);
@@ -64,31 +71,14 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 
-   /* UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
-    float GetTHC() const { return THC.GetCurrentValue(); }
 
-    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
-    float GetCBD() const { return CBD.GetCurrentValue(); }
-
-    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
-    float GetYield() const { return Yield.GetCurrentValue(); }
-
-    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
-    float GetTempResistance() const { return TempResistance.GetCurrentValue(); }
-
-    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
-    float GetHumidityResistance() const { return HumidityResistance.GetCurrentValue(); }
-
-    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
-    float GetIndicaRatio() const { return IndicaRatio.GetCurrentValue(); }
-
-    UFUNCTION(BlueprintPure, Category = "Strain|Attributes")
-    float GetSativaRatio() const { return SativaRatio.GetCurrentValue(); }*/
 
 
 
 
 protected:
+
+
     UFUNCTION()
     void OnRep_THC(const FGameplayAttributeData& OldValue);
 
@@ -109,4 +99,10 @@ protected:
 
     UFUNCTION()
     void OnRep_SativaRatio(const FGameplayAttributeData& OldValue);
+
+    UFUNCTION()
+    void OnRep_GrowthTime(const FGameplayAttributeData& OldValue);
+
+   /* UFUNCTION()
+    void OnRep_CurrentGrowth(const FGameplayAttributeData& OldValue);*/
 };
