@@ -42,6 +42,8 @@ void AAPotActor::PlantSeed(TSubclassOf<AAStrainActor> PlantClass)
         if (CurrentPlant)
         {
             CurrentPlant->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+            CurrentPlant->DataTable = DataTable;
+            CurrentPlant->RowName = RowName;
             CurrentPlant->StartGrowth(this);
         }
 }

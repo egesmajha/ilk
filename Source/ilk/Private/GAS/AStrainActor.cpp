@@ -20,6 +20,8 @@ AAStrainActor::AAStrainActor()
     
     AbilitySystemComponent = CreateDefaultSubobject<UStrainAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
     StrainAttributeSet = CreateDefaultSubobject<UStrainAttributeSet>(TEXT("StrainAttributes"));
+    AbilitySystemComponent->SetIsReplicated(true);
+    
 }
 
 UAbilitySystemComponent* AAStrainActor::GetAbilitySystemComponent() const
@@ -34,7 +36,7 @@ void AAStrainActor::BeginPlay()
 {
 	Super::BeginPlay();
 
-    if (StrainAttributeSet)
+    if (StrainAttributeSet && DataTable)
     {
         if(DataTable)
         {
