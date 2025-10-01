@@ -53,6 +53,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Growth")
     void OnFullyGrown();
 
+
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 protected:
