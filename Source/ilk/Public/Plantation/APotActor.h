@@ -33,5 +33,5 @@ public:
     AAStrainActor* CurrentPlant;
 
     UFUNCTION(BlueprintCallable, Category = "Pot")
-    void PlantSeed(TSubclassOf<AAStrainActor> StrainClass);
+    void PlantSeed(TSubclassOf<AAStrainActor> PlantClass, UDataTable* StrainData, FName StrainRow);
 };

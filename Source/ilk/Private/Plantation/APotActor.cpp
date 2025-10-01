@@ -23,12 +23,11 @@ void AAPotActor::BeginPlay()
 
 
 
-void AAPotActor::PlantSeed(TSubclassOf<AAStrainActor> PlantClass)
+void AAPotActor::PlantSeed(TSubclassOf<AAStrainActor> PlantClass, UDataTable* StrainData, FName StrainRow)
 {
-
     if (CurrentPlant) return;
 
-    if (StrainClass)
+    if (PlantClass)
     {
         FActorSpawnParameters SpawnParams;
         SpawnParams.Owner = this;
@@ -37,14 +36,19 @@ void AAPotActor::PlantSeed(TSubclassOf<AAStrainActor> PlantClass)
         FVector Location = GetActorLocation() + FVector(0.f, 0.f, 50.f);
         FRotator Rotation = FRotator::ZeroRotator;
 
-        CurrentPlant = GetWorld()->SpawnActor<AAStrainActor>(StrainClass, Location, Rotation, SpawnParams);
+        CurrentPlant = GetWorld()->SpawnActor<AAStrainActor>(PlantClass, Location, Rotation, SpawnParams);
 
         if (CurrentPlant)
         {
             CurrentPlant->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
-            CurrentPlant->DataTable = DataTable;
-            CurrentPlant->RowName = RowName;
+
+            // DataTable ve RowName’i set et
+            CurrentPlant->DataTable = StrainData;
+            CurrentPlant->RowName = StrainRow;
+            CurrentPlant->StrainAttributeSet->InitializeFromDataTable(StrainData, StrainRow);
+
             CurrentPlant->StartGrowth(this);
         }
+    }
 }
 

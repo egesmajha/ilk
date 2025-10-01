@@ -41,7 +41,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Strain|Data")
     FName RowName;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Strain|Data")
+    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category = "Strain|Data")
     FGrowthData GrowthData;
 
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const ;
@@ -49,9 +49,16 @@ public:
     UPROPERTY()
     class AAPotActor* OWningPot;
     void StartGrowth(AAPotActor * InPot);
+
+    UFUNCTION(BlueprintCallable, Category = "Growth")
+    void OnFullyGrown();
+
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+   
 
 public:	
 	// Called every frame

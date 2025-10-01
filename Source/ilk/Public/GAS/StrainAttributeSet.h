@@ -101,6 +101,5 @@ protected:
     UFUNCTION()
     void OnRep_GrowthTime(const FGameplayAttributeData& OldValue);
 
-   /* UFUNCTION()
-    void OnRep_CurrentGrowth(const FGameplayAttributeData& OldValue);*/
+ 
 };

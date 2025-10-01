@@ -57,13 +57,9 @@ void UStrainAttributeSet::OnRep_SativaRatio(const FGameplayAttributeData& OldVal
     GAMEPLAYATTRIBUTE_REPNOTIFY(UStrainAttributeSet, SativaRatio, OldValue);
 }
 
-void UStrainAttributeSet::OnRep_GrowthTime(const FGameplayAttributeData& OldValue)
-{
-}
 
-void UStrainAttributeSet::OnRep_CurrentGrowth(const FGameplayAttributeData& OldValue)
-{
-}
+
+
 
 void UStrainAttributeSet::InitializeFromDataTable(UDataTable* DataTable, FName RowName)
 {
@@ -112,6 +108,8 @@ void UStrainAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
     DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, HumidityResistance, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, IndicaRatio, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, SativaRatio, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UStrainAttributeSet, GrowthTime, COND_None, REPNOTIFY_Always);
+    
 }
 
 

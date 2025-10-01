@@ -69,31 +69,33 @@ public:
     {
         GENERATED_BODY()
 
-        UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-        float CurrentGrowth = 0.f; // 0-100 %
+        UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        float CurrentGrowth = 0.0f;
 
-        UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-        float GrowthRate = 1.f; // tick başına artış
+        UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        float GrowthRate = 1.0f;
 
-        UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-        float TimeElapsed = 0.f;
+        UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        float GrowthTime = 100.0f; // Maksimum büyüme süresi BURADA
 
-        UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+        UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        float TimeElapsed = 0.0f;
+
+        UPROPERTY(EditAnywhere, BlueprintReadWrite)
         bool bIsMature = false;
 
-        // Çevresel faktörler
-        UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-        float TemperatureMultiplier = 1.f;
+        // Çevresel çarpanlar
+        UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        float TemperatureMultiplier = 1.0f;
 
-        UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-        float HumidityMultiplier = 1.f;
+        UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        float HumidityMultiplier = 1.0f;
 
-        UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-        float FertilizerMultiplier = 1.f;
+        UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        float FertilizerMultiplier = 1.0f;
 
-        UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-        float LightMultiplier = 1.f;
-
+        UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        float LightMultiplier = 1.0f;
     };
 
 
