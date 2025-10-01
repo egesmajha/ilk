@@ -8,21 +8,20 @@
 #include "AbilitySystemComponent.h"
 #include "AttributeSet.h"
 #include "StrainAttributeSet.generated.h"
+
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
     GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
     GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
     GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
     GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
-
 /**
- * 
+ *
  */
 UCLASS()
 class ILK_API UStrainAttributeSet : public UAttributeSet
 {
-	GENERATED_BODY()
-
+    GENERATED_BODY()
 
 public:
     UStrainAttributeSet();
@@ -30,7 +29,6 @@ public:
     UPROPERTY(BlueprintReadOnly, Category = "Genetics", ReplicatedUsing = OnRep_THC)
     FGameplayAttributeData THC;
     ATTRIBUTE_ACCESSORS(UStrainAttributeSet, THC)
-
 
         UPROPERTY(BlueprintReadOnly, Category = "Genetics", ReplicatedUsing = OnRep_CBD)
     FGameplayAttributeData CBD;
@@ -60,23 +58,12 @@ public:
     FGameplayAttributeData GrowthTime;
     ATTRIBUTE_ACCESSORS(UStrainAttributeSet, GrowthTime)
 
-
-
         UFUNCTION(BlueprintCallable, Category = "Strain")
     void InitializeFromDataTable(UDataTable* DataTable, FName RowName);
 
-   
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-
-
-
-
-
-
 protected:
-
-
     UFUNCTION()
     void OnRep_THC(const FGameplayAttributeData& OldValue);
 
@@ -85,7 +72,7 @@ protected:
 
     UFUNCTION()
     void OnRep_Yield(const FGameplayAttributeData& OldValue);
-    
+
     UFUNCTION()
     void OnRep_TempResistance(const FGameplayAttributeData& OldValue);
 
@@ -100,6 +87,4 @@ protected:
 
     UFUNCTION()
     void OnRep_GrowthTime(const FGameplayAttributeData& OldValue);
-
- 
 };

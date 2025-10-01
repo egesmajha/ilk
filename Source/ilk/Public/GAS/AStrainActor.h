@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -10,59 +8,58 @@
 #include "AbilitySystemComponent.h"
 #include "AStrainActor.generated.h"
 
+
 UCLASS()
-class ILK_API AAStrainActor : public AActor
+class ILK_API AAStrainActor : public AActor, public IAbilitySystemInterface
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
 
-
-public:	
-	// Sets default values for this actor's properties
-	AAStrainActor();
+public:
+    AAStrainActor();
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-     class UStaticMeshComponent* StrainMesh;
+    UStaticMeshComponent* StrainMesh;
 
-     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-     class USceneComponent* Root;
-
-    
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    USceneComponent* Root;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
-    UAbilitySystemComponent* AbilitySystemComponent;
+    UStrainAbilitySystemComponent* AbilitySystemComponent;
 
     UPROPERTY()
     UStrainAttributeSet* StrainAttributeSet;
 
-    UPROPERTY(EditAnywhere,BlueprintReadOnly, Category ="Strain|Data")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Strain|Data")
     UDataTable* DataTable;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Strain|Data")
     FName RowName;
 
-    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category = "Strain|Data")
+    UPROPERTY(ReplicatedUsing = OnRep_GrowthData, VisibleAnywhere, BlueprintReadOnly, Category = "Strain|Data")
     FGrowthData GrowthData;
 
-    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const ;
+    // Item system
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+    FItemData ItemInfo;
 
     UPROPERTY()
     class AAPotActor* OWningPot;
-    void StartGrowth(AAPotActor * InPot);
+
+    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
     UFUNCTION(BlueprintCallable, Category = "Growth")
+    void StartGrowth(AAPotActor* InPot);
+
+    UFUNCTION(BlueprintCallable)
     void OnFullyGrown();
 
+    UFUNCTION()
+    void OnRep_GrowthData();
 
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-   
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
+    virtual void BeginPlay() override;
+public:
+    virtual void Tick(float DeltaTime) override;
 };

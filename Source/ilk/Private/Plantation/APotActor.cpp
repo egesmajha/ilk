@@ -1,33 +1,27 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Plantation/APotActor.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 AAPotActor::AAPotActor()
 {
- 
     Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
     SetRootComponent(Root);
+
     PotMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PotMesh"));
     PotMesh->SetupAttachment(Root);
-
 }
 
 // Called when the game starts or when spawned
 void AAPotActor::BeginPlay()
 {
-	Super::BeginPlay();
-	
+    Super::BeginPlay();
 }
-
-
 
 void AAPotActor::PlantSeed(TSubclassOf<AAStrainActor> PlantClass, UDataTable* StrainData, FName StrainRow)
 {
     if (CurrentPlant) return;
 
-    if (PlantClass)
+    if (PlantClass && HasAuthority()) // Server-only
     {
         FActorSpawnParameters SpawnParams;
         SpawnParams.Owner = this;
@@ -45,10 +39,16 @@ void AAPotActor::PlantSeed(TSubclassOf<AAStrainActor> PlantClass, UDataTable* St
             // DataTable ve RowName’i set et
             CurrentPlant->DataTable = StrainData;
             CurrentPlant->RowName = StrainRow;
-            CurrentPlant->StrainAttributeSet->InitializeFromDataTable(StrainData, StrainRow);
 
+            CurrentPlant->StrainAttributeSet->InitializeFromDataTable(StrainData, StrainRow);
             CurrentPlant->StartGrowth(this);
         }
     }
 }
 
+void AAPotActor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+    DOREPLIFETIME(AAPotActor, CurrentPlant);
+}
